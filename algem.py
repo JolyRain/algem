@@ -3,8 +3,8 @@ from pylab import *
 
 
 class Cardioid:
+    ANGLE = np.linspace(0, 2 * pi, 1000)
     parameter = 0
-    ANGLE = np.linspace(0, 2 * pi, 10000)
     x = 0
     y = 0
 
@@ -17,9 +17,17 @@ class Cardioid:
         self.y = self.parameter * (2 * sin(self.ANGLE) - sin(2 * self.ANGLE))
 
 
+def coordinate_axes():
+    ax = plt.gca()
+    ax.spines['left'].set_position('center')
+    ax.spines['bottom'].set_position('center')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+
 class Graphic:
     cardioid = None
-    BORDER = 50
+    BORDER = 20
 
     def __init__(self, cardioid):
         self.cardioid = cardioid
@@ -30,10 +38,10 @@ class Graphic:
         ax.set(xlim=[-self.BORDER, self.BORDER],
                ylim=[-self.BORDER, self.BORDER],
                title='Кардиоида',
-               xlabel='ось X',
-               ylabel='ось Y')
-        plt.plot(self.cardioid.x, self.cardioid.y, 'red')
+               )
         plt.grid()
+        coordinate_axes()
+        plt.plot(self.cardioid.x, self.cardioid.y, 'red', linewidth=3)
         plt.show()
 
 
