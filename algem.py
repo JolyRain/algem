@@ -3,8 +3,9 @@ from matplotlib import ticker
 from pylab import *
 
 
+# Класс, описывающий астроиду
 class Astroid:
-    FORMULA = r'$x^{\frac{2}{3}}+y^{\frac{2}{3}}=R^{\frac{2}{3}}$'
+    EQUATION = r'$x^{\frac{2}{3}}+y^{\frac{2}{3}}=R^{\frac{2}{3}}$'
     ANGLE = np.linspace(0, 2 * pi, 1000)
     radius = 0
     x = 0
@@ -14,11 +15,13 @@ class Astroid:
         self.radius = radius
         self.__function()
 
+    # Параметрическое уравнение астроиды
     def __function(self):
         self.x = self.radius * pow(cos(self.ANGLE), 3)
         self.y = self.radius * pow(sin(self.ANGLE), 3)
 
 
+# "Красота" для графика
 def coordinate_axes():
     ax = plt.gca()
     ax.spines['left'].set_position('center')
@@ -38,18 +41,18 @@ def coordinate_axes():
     ax.tick_params(labelsize=16)
 
 
+# Класс, рисующий график астроиды
 class Graphic:
     astroid = None
-    BORDER = None
+    BORDER = 10
 
     def __init__(self, astroid):
         self.astroid = astroid
-        self.BORDER = 10
 
     def show(self):
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot()
-        ax.set_title('Астроида\n' + self.astroid.FORMULA +
+        ax.set_title('Астроида\n' + self.astroid.EQUATION +
                      ', при R = ' + str(self.astroid.radius), pad=15, fontsize=20)
         ax.set(xlim=[-self.BORDER, self.BORDER],
                ylim=[-self.BORDER, self.BORDER],
