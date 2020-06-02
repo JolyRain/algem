@@ -1,5 +1,4 @@
 from math import sin, cos
-
 from matplotlib import ticker
 from pylab import *
 
@@ -11,8 +10,8 @@ class Astroid:
     x = 0
     y = 0
 
-    def __init__(self, parameter):
-        self.radius = parameter
+    def __init__(self, radius):
+        self.radius = radius
         self.__function()
 
     def __function(self):
@@ -60,7 +59,7 @@ class Graphic:
         plt.show()
 
 
-radius = float(input('radius = '))
-new_cardioid = Astroid(radius)
-graphic = Graphic(new_cardioid)
+radius_input = int(input('radius = '))
+new_astroid = Astroid(radius_input)
+graphic = Graphic(new_astroid)
 graphic.show()
