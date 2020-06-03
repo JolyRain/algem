@@ -5,6 +5,7 @@ from pylab import *
 
 # Класс, описывающий астроиду
 class Astroid:
+    EQUATION = None
     ANGLE = np.linspace(0, 2 * pi, 1000)
     is_evolute = False
     parameter_a = 0
@@ -19,12 +20,18 @@ class Astroid:
         else:
             self.parameter_b = parameter_b
             self.is_evolute = True
+        self.__set_equation()
         self.__function()
 
     # Параметрическое уравнение астроиды
     def __function(self):
         self.x = self.parameter_a * pow(cos(self.ANGLE), 3)
         self.y = self.parameter_b * pow(sin(self.ANGLE), 3)
+
+    def __set_equation(self):
+        self.EQUATION = r'$x=a\cos^{3}\left(t\right)$, ' + r'$y=b\sin^{3}\left(t\right)$' \
+            if self.is_evolute else \
+            r'$x=R\cos^{3}\left(t\right)$, ' + r'$y=R\sin^{3}\left(t\right)$'
 
 
 # "Красивое" поле для графика
@@ -53,12 +60,9 @@ class Graphic:
 
     def __init__(self, astroid):
         self.astroid = astroid
-        if astroid.is_evolute:
-            self.title = 'Астроида\n' + \
-                         'при a = ' + str(self.astroid.parameter_a) + \
-                         ' и b = ' + str(self.astroid.parameter_b)
-        else:
-            self.title = 'Астроида\n' + 'при R = ' + str(self.astroid.parameter_a)
+        self.title = 'Астроида\n' + self.astroid.EQUATION + ('\nпри a = ' + str(
+            self.astroid.parameter_a) + ' и b = ' + str(
+            self.astroid.parameter_b) if self.astroid.is_evolute else '\nпри R = ' + str(self.astroid.parameter_a))
 
     def show(self):
         fig = plt.figure(figsize=(self.BORDER, self.BORDER))
@@ -71,6 +75,6 @@ class Graphic:
         plt.show()
 
 
-new_astroid = Astroid(10, 2)
+new_astroid = Astroid(2, 10)
 graphic = Graphic(new_astroid)
 graphic.show()
