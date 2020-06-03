@@ -21,13 +21,11 @@ class Astroid:
         self.y = self.radius * pow(sin(self.ANGLE), 3)
 
 
-# "Красота" для графика
+# "Красивое" поле для графика
 def coordinate_axes():
     ax = plt.gca()
     ax.spines['left'].set_position('center')
     ax.spines['bottom'].set_position('center')
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
     ax.xaxis.set_major_locator(ticker.MultipleLocator(5))
     ax.xaxis.set_minor_locator(ticker.MultipleLocator(5))
     ax.yaxis.set_major_locator(ticker.MultipleLocator(5))
@@ -38,7 +36,7 @@ def coordinate_axes():
     ax.grid(which='minor',
             color='gray',
             linestyle=':')
-    ax.tick_params(labelsize=16)
+    ax.tick_params(labelsize=20)
 
 
 # Класс, рисующий график астроиды
@@ -50,13 +48,12 @@ class Graphic:
         self.astroid = astroid
 
     def show(self):
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(self.BORDER, self.BORDER))
         ax = fig.add_subplot()
         ax.set_title('Астроида\n' + self.astroid.EQUATION +
-                     ', при R = ' + str(self.astroid.radius), pad=15, fontsize=20)
+                     ', при R = ' + str(self.astroid.radius), pad=20, fontsize=30)
         ax.set(xlim=[-self.BORDER, self.BORDER],
-               ylim=[-self.BORDER, self.BORDER],
-               )
+               ylim=[-self.BORDER, self.BORDER])
         coordinate_axes()
         ax.plot(self.astroid.x, self.astroid.y, 'red', linewidth=3)
         plt.show()
